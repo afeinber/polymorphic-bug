@@ -92,13 +92,12 @@ class BugTest < Minitest::Test
   def test_with_id_one_thousand
     DatabaseCleaner.clean
 
-    ActiveRecord::Base.connection.execute("UPDATE SQLITE_SEQUENCE SET seq = 1000 WHERE name = 'hands'")
-
     deck = Deck.new
     deck.cards << Card.new
     deck.cards << Card.new
     deck.save!
 
+    # set the starting ID to 1000
     hand_1 = Hand.new(id: 1000, cards: [
       deck.pop
     ])
